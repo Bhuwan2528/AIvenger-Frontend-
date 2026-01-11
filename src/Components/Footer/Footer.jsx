@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import "./Footer.css";
 import { FiInstagram, FiYoutube } from "react-icons/fi";
 import fallbackLogo from "../../assets/logo.png"; // 👈 fallback logo
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API_URL}/api/footer`)
@@ -91,6 +93,8 @@ const Footer = () => {
               <FiYoutube /> Youtube
             </a>
           )}
+
+          <p onClick={()=> navigate('/admin/login')}>Admin Login</p>
         </div>
       </div>
     </footer>
