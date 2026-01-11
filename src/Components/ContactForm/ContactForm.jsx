@@ -5,10 +5,13 @@ import {
   FiMail,
   FiMapPin,
   FiClock,
-  FiSend
+  FiSend,
 } from "react-icons/fi";
 
-const ContactForm = () => {
+const ContactForm = ({ data }) => {
+  const dropdownOptions = data?.dropdownOptions || [];
+  const info = data?.contactInfo || {};
+
   return (
     <section className="contact-section">
       <div className="contact-container">
@@ -38,14 +41,14 @@ const ContactForm = () => {
               </div>
             </div>
 
+            {/* DROPDOWN (DYNAMIC) */}
             <div className="form-group full">
               <label>I'm Interested In *</label>
               <select>
                 <option className="option1">Select an option</option>
-                <option>AI Lab Setup</option>
-                <option>Robotics Lab Setup</option>
-                <option>STEM Programs</option>
-                <option>School Partnership</option>
+                {dropdownOptions.map((opt, index) => (
+                  <option key={index}>{opt}</option>
+                ))}
               </select>
             </div>
 
@@ -70,7 +73,7 @@ const ContactForm = () => {
               <span className="icon"><FiPhone /></span>
               <div>
                 <p>Call Us</p>
-                <span>+91 9999204834</span>
+                <span>{info.phone || "+91 9999204834"}</span>
               </div>
             </div>
 
@@ -78,7 +81,7 @@ const ContactForm = () => {
               <span className="icon"><FiMail /></span>
               <div>
                 <p>Email Us</p>
-                <span>info@aivengers.co.in</span>
+                <span>{info.email || "info@aivengers.co.in"}</span>
               </div>
             </div>
 
@@ -87,7 +90,8 @@ const ContactForm = () => {
               <div>
                 <p>Visit Us</p>
                 <span>
-                  E cell IIT Gawhati, Bangalore office, Gurgaon office, Jaipur office.
+                  {info.address ||
+                    "E cell IIT Gawhati, Bangalore office, Gurgaon office, Jaipur office."}
                 </span>
               </div>
             </div>
@@ -96,8 +100,13 @@ const ContactForm = () => {
               <span className="icon"><FiClock /></span>
               <div>
                 <p>Business Hours</p>
-                <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
-                <span>Sunday: Closed</span>
+                <span>
+                  {info.businessHours?.weekday ||
+                    "Mon – Sat: 9:00 AM – 6:00 PM"}
+                </span>
+                <span>
+                  {info.businessHours?.weekend || "Sunday: Closed"}
+                </span>
               </div>
             </div>
           </div>

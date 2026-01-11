@@ -1,20 +1,22 @@
 import React from "react";
 import "./ChooseSection.css";
 
-/* LAB IMAGES */
-import lab1 from "../../assets/labs/robotics.png";
-import lab2 from "../../assets/labs/drone.png";
-import lab3 from "../../assets/labs/lab3.jpeg";
-import card2 from "../../assets/card-2.avif";
-import service1 from "../../assets/students/student6.jpeg"
-import service2 from "../../assets/students/student3.jpeg"
-import service3 from "../../assets/students/student10.jpeg"
-/* ICONS */
+/* FALLBACK ASSETS (only used if DB image missing) */
+import fallbackLab from "../../assets/labs/robotics.png";
+import fallbackLms from "../../assets/card-2.avif";
+import fallbackService from "../../assets/students/student6.jpeg";
+
+/* ICONS (STATIC CARD 4) */
 import { HiOutlineBookOpen } from "react-icons/hi";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { HiOutlineCube } from "react-icons/hi";
 
-const ChooseSection = () => {
+const ChooseSection = ({ data }) => {
+  const intro = data?.intro || {};
+  const labs = data?.labs?.items || [];
+  const lms = data?.lms || {};
+  const services = data?.services?.items || [];
+
   return (
     <section className="choose-section">
 
@@ -23,164 +25,125 @@ const ChooseSection = () => {
         <span className="choose-pill">WHY CHOOSE US?</span>
 
         <h2>
-          Not just a Lab. Not just a Course. A Complete Skill Ecosystem.
+          {intro.heading || "Not just a Lab. Not just a Course. A Complete Skill Ecosystem."}
         </h2>
 
         <p>
-          AIVenger is a composite skill lab designed to create
-          confident innovators, problem-solvers, and future founders
-          through hands-on STEM, AI tools, and personality development.
+          {intro.description ||
+            "AIVenger is a composite skill lab designed to create confident innovators, problem-solvers, and future founders through hands-on STEM, AI tools, and personality development."}
         </p>
       </div>
 
-      {/* NORMAL FLOW (NO STACKING) */}
+      {/* NORMAL FLOW */}
       <div className="stack-area">
 
-        {/* CARD 1 */}
+        {/* CARD 1 – LABS */}
         <div className="stack-card card-1">
           <div className="stack-card-inner">
             <h3>Cutting Edge Labs</h3>
 
             <div className="labs-grid">
-              <div className="lab-card">
-                <img src={lab1} alt="Robotics Lab" />
-                <h4>Robotics Lab</h4>
-                <p>
-                  Robotics Lab fosters innovation, coding, automation,
-                  engineering, and hands-on learning.
-                </p>
-                <button>Know More ↗</button>
-              </div>
-
-              <div className="lab-card">
-                <img src={lab2} alt="AI & Drone Lab" />
-                <h4>AI/Drone Lab</h4>
-                <p>
-                  AI/Drone Lab creates immersive learning, innovation,
-                  simulation, and virtual experiences.
-                </p>
-                <button>Know More ↗</button>
-              </div>
-
-              <div className="lab-card">
-                <img src={lab3} alt="Composite Lab" />
-                <h4>Composite Lab</h4>
-                <p>
-                  An advanced lab enabling innovation, AI, automation,
-                  engineering, and experimentation.
-                </p>
-                <button>Know More ↗</button>
-              </div>
+              {labs.map((lab, index) => (
+                <div className="lab-card" key={index}>
+                  <img
+                    src={lab.imageUrl || fallbackLab}
+                    alt={lab.title || "Lab"}
+                  />
+                  <h4>{lab.title}</h4>
+                  <p>{lab.description}</p>
+                  <button>{lab.buttonText || "Know More"} ↗</button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* CARD 2 */}
+        {/* CARD 2 – LMS */}
         <div className="stack-card card-2">
           <div className="stack-card-inner">
             <div className="card-2-content">
               <div className="card-2-media">
-                <img src={card2} alt="Interactive LMS" />
+                <img
+                  src={lms.imageUrl || fallbackLms}
+                  alt="Learning Management System"
+                />
               </div>
 
               <div className="card-2-text">
                 <h3>Learning Management System (iLMS)</h3>
-                <p>
-                  Bringing robotics to classrooms has never been easier.
-                  iLMS empowers educators with tools to make hands-on
-                  learning seamless and impactful.
-                </p>
+                <p>{lms.description}</p>
                 <button className="outline-btn">
-                  Learn more <span>↗</span>
+                  {lms.buttonText || "Learn more"} <span>↗</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* CARD 3 */}
-            <div className="stack-card card-3">
-            <div className="stack-card-inner">
-                <h3>End to End Services</h3>
+        {/* CARD 3 – SERVICES */}
+        <div className="stack-card card-3">
+          <div className="stack-card-inner">
+            <h3>End to End Services</h3>
 
-                <div className="labs-grid">
-
-                <div className="lab-card">
-                    <img src={service1} alt="Competition Support" />
-                    <h4>Competition Support</h4>
-                    <p>
-                    Win various inter-school competitions with our support!
-                    </p>
-                    <button>Know More ↗</button>
+            <div className="labs-grid">
+              {services.map((service, index) => (
+                <div className="lab-card" key={index}>
+                  <img
+                    src={service.imageUrl || fallbackService}
+                    alt={service.title || "Service"}
+                  />
+                  <h4>{service.title}</h4>
+                  <p>{service.description}</p>
+                  <button>{service.buttonText || "Know More"} ↗</button>
                 </div>
-
-                <div className="lab-card">
-                    <img src={service2} alt="Exhibition Support" />
-                    <h4>Exhibition Support</h4>
-                    <p>
-                    We offer comprehensive exhibition support for schools.
-                    </p>
-                    <button>Know More ↗</button>
-                </div>
-
-                <div className="lab-card">
-                    <img src={service3} alt="Instructor Support" />
-                    <h4>Instructor Support</h4>
-                    <p>
-                    Expert instructors to enhance the learning experience.
-                    </p>
-                    <button>Know More ↗</button>
-                </div>
-
-                </div>
+              ))}
             </div>
-            </div>
+          </div>
+        </div>
 
-        {/* CARD 4 */}
+        {/* CARD 4 – STATIC (CURRICULUM REMOVED FROM MODEL) */}
         <div className="stack-card card-4">
-        <div className="stack-card-inner">
+          <div className="stack-card-inner">
             <h3>Future ready curriculum & Kits</h3>
 
             <div className="icon-grid">
 
-            <div className="icon-card">
+              <div className="icon-card">
                 <div className="icon-circle">
-                <HiOutlineBookOpen />
+                  <HiOutlineBookOpen />
                 </div>
                 <h4>NEP Powered Curriculum</h4>
                 <p>
-                Our NEP 2020-aligned curriculum prepares students for the
-                future which is Tech.
+                  Our NEP 2020-aligned curriculum prepares students for the
+                  future which is Tech.
                 </p>
-            </div>
+              </div>
 
-            <div className="icon-card">
+              <div className="icon-card">
                 <div className="icon-circle">
-                <HiOutlineDocumentText />
+                  <HiOutlineDocumentText />
                 </div>
                 <h4>Workbooks Integration</h4>
                 <p>
-                Our workbooks combine traditional and digital learning
-                methods giving an advanced learning process.
+                  Our workbooks combine traditional and digital learning
+                  methods giving an advanced learning process.
                 </p>
-            </div>
+              </div>
 
-            <div className="icon-card">
+              <div className="icon-card">
                 <div className="icon-circle">
-                <HiOutlineCube />
+                  <HiOutlineCube />
                 </div>
                 <h4>Innovative Kits</h4>
                 <p>
-                Explore hands-on learning with our innovative kits designed
-                to inspire creativity and knowledge.
+                  Explore hands-on learning with our innovative kits designed
+                  to inspire creativity and knowledge.
                 </p>
-            </div>
+              </div>
 
             </div>
+          </div>
         </div>
-        </div>
-
-
 
       </div>
     </section>

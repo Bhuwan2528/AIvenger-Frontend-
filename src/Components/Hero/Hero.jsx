@@ -7,26 +7,27 @@ import { MdOutlineVerified } from "react-icons/md";
 /* ASSETS */
 import heroVideo from "../../assets/robotics-lab.webm";
 
-// School logos
-// import school1 from "../../assets/schools/school1.avif";
-// import school2 from "../../assets/schools/school1.avif";
-// import school3 from "../../assets/schools/school2.avif";
-// import school4 from "../../assets/schools/school1.avif";
-// import school5 from "../../assets/schools/school2.avif";
-// import school6 from "../../assets/schools/school1.avif";
+/* SCHOOL LOGOS */
+const schoolImages = import.meta.glob(
+  "../../assets/schools/*.{jpg,jpeg,png}",
+  { eager: true }
+);
 
-  const schoolImages = import.meta.glob(
-    "../../assets/schools/*.{jpg,jpeg,png,}",
-    { eager: true }
-  );
+const schoolLogos = Object.values(schoolImages).map(
+  (img) => img.default
+);
 
-  const schoolLogos = Object.values(schoolImages).map(
-    (img) => img.default
-  );
+const Hero = ({ hero }) => {
+  // 🛡️ SAFE FALLBACKS (sirf backend-driven fields)
+  const {
+    badgeText = "India’s Most Advanced Labs",
+    leadText = "Where students don’t just learn — they build, launch, and lead.",
+    subText = "From STEM innovation to AI-powered entrepreneurship, we prepare children for the world that doesn’t exist yet.",
+    primaryButtonText = "Book a Meeting",
+    primaryButtonURL = "#",
+    mediaUrl,
+  } = hero || {};
 
-
-
-const Hero = () => {
   return (
     <section className="hero">
 
@@ -38,25 +39,28 @@ const Hero = () => {
         {/* LEFT CONTENT */}
         <div className="hero-left">
 
+          {/* ✅ DYNAMIC */}
           <span className="hero-badge">
-            India’s Most Advanced Labs
+            {badgeText}
           </span>
 
+          {/* ❌ STATIC (AS PER YOUR DESIGN) */}
           <h1>
             AIVenger is India’s most <br />
             <span>Advanced AI & Robotics</span> Skill Lab
           </h1>
 
+          {/* ✅ DYNAMIC */}
           <p className="hero-lead">
-            Where students don’t just learn — they <span>build, launch,
-            and lead</span>.
+            {leadText}.
           </p>
 
+          {/* ✅ DYNAMIC */}
           <p className="hero-subtext">
-            From STEM innovation to AI-powered entrepreneurship,
-            we prepare children for the world that doesn’t exist yet.
+            {subText}
           </p>
 
+          {/* ❌ STATIC */}
           <ul className="hero-highlights">
             <li>
               <HiOutlineAcademicCap />
@@ -72,15 +76,14 @@ const Hero = () => {
             </li>
           </ul>
 
-
+          {/* ✅ DYNAMIC */}
           <div className="hero-actions">
-            <button className="hero-btn primary">
-              Book a Meeting <span>↗</span>
-            </button>
-
-            {/* <span className="hero-tagline">
-              👉 Because the future belongs to the makers.
-            </span> */}
+            <a
+              href={primaryButtonURL}
+              className="hero-btn primary"
+            >
+              {primaryButtonText} <span>↗</span>
+            </a>
           </div>
 
         </div>
@@ -89,7 +92,7 @@ const Hero = () => {
         <div className="hero-right">
           <video
             className="hero-media"
-            src={heroVideo}
+            src={mediaUrl || heroVideo}
             autoPlay
             muted
             loop
@@ -99,22 +102,21 @@ const Hero = () => {
 
       </div>
 
-      {/* TRUST TEXT */}
+      {/* STATIC */}
       <div className="trust-text">
         <span>50+</span> schools trust AIVenger to shape future innovators
       </div>
 
       {/* LOGO SLIDER */}
-
-<div className="logo-slider">
-  <div className="logo-track">
-    {[...schoolLogos, ...schoolLogos].map((logo, index) => (
-      <div className="logo-card" key={index}>
-        <img src={logo} alt="School logo" />
+      <div className="logo-slider">
+        <div className="logo-track">
+          {[...schoolLogos, ...schoolLogos].map((logo, index) => (
+            <div className="logo-card" key={index}>
+              <img src={logo} alt="School logo" />
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
     </section>
   );

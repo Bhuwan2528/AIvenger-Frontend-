@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./AdminHero.css";
+import "./AdminForm.css";
 
 const AdminHero = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -27,13 +27,15 @@ const AdminHero = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data && data.hero) {
-          setHero(data.hero);
+          setHero((prev) => ({
+            ...prev,
+            ...data.hero,
+          }));
         }
       })
-      .catch(() => {
-        // ignore for now
-      });
+      .catch(() => {});
   }, []);
+
 
   /* =========================
      INPUT CHANGE HANDLER

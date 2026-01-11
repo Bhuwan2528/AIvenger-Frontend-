@@ -1,65 +1,98 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./Footer.css";
 import { FiInstagram, FiYoutube } from "react-icons/fi";
-import logo from "../../assets/logo.png"
+import fallbackLogo from "../../assets/logo.png"; // 👈 fallback logo
 
 const Footer = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/footer`)
+      .then((res) => res.json())
+      .then((resData) => setData(resData))
+      .catch(() => {});
+  }, []);
+
+  const brand = data?.brand || {};
+  const about = data?.about || {};
+  const company = data?.company || {};
+  const support = data?.support || {};
+  const socials = data?.socials || {};
+
+  const renderLinks = (column) => {
+    return [1, 2, 3, 4, 5].map((i) => {
+      const link = column[`link${i}`];
+      if (!link?.text) return null;
+
+      return (
+        <li key={i}>
+          <a href={link.url || "#"}>{link.text}</a>
+        </li>
+      );
+    });
+  };
+
   return (
     <footer className="footer">
-
       <div className="footer-top">
-
         {/* LEFT INFO */}
         <div className="footer-brand">
-          <div className="footer-logo"><img src={logo} alt="" /></div>
-          <p>
-            Building the next generation of innovators through hands-on AI, Robotics, and Drone education. Empowering students aged 3-18 accross India.
-          </p>
+          <div className="footer-logo">
+            <img
+              src={brand.logoUrl || fallbackLogo}
+              alt="Footer Logo"
+            />
+          </div>
+
+          <p>{brand.description || ""}</p>
         </div>
 
         {/* ABOUT */}
         <div className="footer-col">
-          <h4>About</h4>
-          <ul>
-            <li>AIvengers</li>
-            <li>LMS</li>
-            <li>Competitions</li>
-            <li>AI & Drone</li>
-          </ul>
+          <h4>{about.heading || ""}</h4>
+          <ul>{renderLinks(about)}</ul>
         </div>
 
         {/* COMPANY */}
         <div className="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li>Contact</li>
-            <li><strong>Mobile</strong> : 9999204834</li>
-            <li><strong>Email</strong> : info@aivengers.co.in</li>
-            <li><strong>Website</strong> : ainvengers.co.in</li>
-          </ul>
+          <h4>{company.heading || ""}</h4>
+          <ul>{renderLinks(company)}</ul>
         </div>
 
         {/* SUPPORT */}
         <div className="footer-col">
-          <h4>Support</h4>
-          <ul>
-            <li>Term & Conditions</li>
-            <li>Privacy Policy</li>
-          </ul>
+          <h4>{support.heading || ""}</h4>
+          <ul>{renderLinks(support)}</ul>
         </div>
-
       </div>
 
       {/* BOTTOM BAR */}
       <div className="footer-bottom">
-        <span>Copyright AIvengers. All right reserved.</span>
+        <span>{data?.bottomText || ""}</span>
 
         <div className="footer-socials">
-          <a href="#"><FiInstagram /> Instagram</a>
-          <a href="#"><FiYoutube /> Youtube</a>
+          {socials.instagramUrl && (
+            <a
+              href={socials.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiInstagram /> Instagram
+            </a>
+          )}
+
+          {socials.youtubeUrl && (
+            <a
+              href={socials.youtubeUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiYoutube /> Youtube
+            </a>
+          )}
         </div>
       </div>
-
     </footer>
   );
 };

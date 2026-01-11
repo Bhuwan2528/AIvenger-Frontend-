@@ -1,15 +1,11 @@
-/* ===============================
-   PAGE ROOT
-================================ */
+/* PAGE ROOT */
 .robotics-page {
   width: 100%;
   overflow-x: hidden;
 }
 
-/* ===============================
-   COMPOSITE HERO SECTION
-================================ */
-.composite-hero {
+/* HERO SECTION */
+.robotics-hero {
   position: relative;
   height: calc(100vh - 80px); /* adjust if navbar height differs */
   width: 100%;
@@ -19,30 +15,38 @@
 }
 
 /* BACKGROUND IMAGE */
-.composite-hero-bg {
+.robotics-hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url("./../../assets/composite-banner.avif"); /* replace if needed */
+  background-image: url("./../../assets/robot-banner.avif"); /* YOU will replace */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   transform: scale(1.02);
 }
 
+.composite.robotics-hero-bg{
+  background-image: url("./../../assets/composite-banner.avif"); /* replace if needed */
+}
+
+.arvr.robotics-hero-bg{
+  background-image: url("./../../assets/labs/lab1.avif"); /* replace if needed */
+}
+
 /* DARK GRADIENT OVERLAY */
-.composite-hero-overlay {
+.robotics-hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.85) 80%,
-    rgba(0, 0, 0, 0.95) 100%
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.45) 100%
   );
 }
 
 /* CONTENT */
-.composite-hero-content {
+.robotics-hero-content {
   position: relative;
   z-index: 2;
   max-width: 900px;
@@ -52,7 +56,7 @@
 }
 
 /* PILL */
-.composite-hero-pill {
+.robotics-hero-pill {
   display: inline-block;
   padding: 8px 18px;
   background: rgba(20, 30, 40, 0.85);
@@ -65,7 +69,7 @@
 }
 
 /* TITLE */
-.composite-hero-title {
+.robotics-hero-title {
   font-size: 48px;
   font-weight: 700;
   line-height: 1.2;
@@ -74,7 +78,7 @@
 }
 
 /* DESCRIPTION */
-.composite-hero-desc {
+.robotics-hero-desc {
   font-size: 17px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.75);
@@ -82,9 +86,9 @@
   margin: 0 auto;
 }
 
-/* ===============================
-   STEM CONTENT SECTION
-================================ */
+
+
+/* STEM CONTENT SECTION */
 .robotics-stem {
   background: #f6f8fb;
   padding: 120px 20px 100px;
@@ -108,20 +112,19 @@
   margin-bottom: 26px;
 }
 
-.robotics-stem-title {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #0f172a;
-  margin-bottom: 28px;
-}
-
 .robotics-stem-subtext {
   max-width: 850px;
   margin: 0 auto 48px;
   font-size: 17px;
   line-height: 1.7;
   color: #475569;
+}
+
+.robotics-stem-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f172a;
 }
 
 /* FULL WIDTH VIDEO */
@@ -137,86 +140,83 @@
   object-fit: cover;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
 
-/* -------- TABLET & BELOW -------- */
-@media (max-width: 1024px) {
-
-  .composite-hero {
-    height: auto;
-    min-height: 80vh;
+@media (max-width: 700px) {
+  /* HERO */
+    .robotics-hero {
+    height: 75vh;
   }
 
-  .composite-hero-title {
-    font-size: 42px;
+  .robotics-hero-title {
+    font-size: 36px;
   }
 
+  .robotics-hero-desc {
+    font-size: 15.5px;
+  }
+
+  .robotics-hero-content {
+    padding-bottom: 60px;
+  }
+
+  /* STEM SECTION */
   .robotics-stem {
-    padding: 100px 20px 90px;
+    padding: 90px 20px 80px;
+  }
+
+  .robotics-stem-subtext {
+    font-size: 16px;
+    margin-bottom: 40px;
   }
 
   .robotics-stem-title {
-    font-size: 42px;
+    font-size: 36px;
   }
 }
 
-/* -------- MOBILE -------- */
-@media (max-width: 768px) {
 
-  .composite-hero {
-    min-height: 75vh;
+@media (max-width: 480px) {
+  /* HERO */
+    .robotics-hero {
+    height: 65vh;
   }
 
-  .composite-hero-content {
-    padding: 0 16px 60px;
+  .robotics-hero-pill {
+    font-size: 11px;
+    padding: 6px 14px;
   }
 
-  .composite-hero-pill {
-    font-size: 12px;
-    padding: 7px 16px;
+  .robotics-hero-title {
+    font-size: 28px;
+    line-height: 1.25;
   }
 
-  .composite-hero-title {
-    font-size: 34px;
+  .robotics-hero-desc {
+    font-size: 14.5px;
   }
 
-  .composite-hero-desc {
-    font-size: 15px;
+  .robotics-hero-content {
+    padding-bottom: 50px;
   }
 
+  /* STEM SECTION */
   .robotics-stem {
-    padding: 80px 16px 70px;
+    padding: 70px 18px 70px;
   }
 
   .robotics-stem-pill {
-    font-size: 12px;
-    padding: 7px 18px;
-  }
-
-  .robotics-stem-title {
-    font-size: 34px;
+    font-size: 11px;
+    padding: 6px 16px;
   }
 
   .robotics-stem-subtext {
-    font-size: 15.5px;
-    margin-bottom: 40px;
-  }
-}
-
-/* -------- SMALL PHONES -------- */
-@media (max-width: 420px) {
-
-  .composite-hero-title {
-    font-size: 30px;
+    font-size: 15px;
+    margin-bottom: 32px;
   }
 
   .robotics-stem-title {
-    font-size: 30px;
-  }
-
-  .robotics-stem-subtext {
-    font-size: 14.5px;
+    font-size: 24px;
+    line-height: 1.3;
   }
 }
+

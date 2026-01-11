@@ -1,145 +1,128 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./contact.css";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
 import { FiPhone } from "react-icons/fi";
 
 const Contact = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/contact`)
+      .then((res) => res.json())
+      .then((resData) => setData(resData))
+      .catch(() => {});
+  }, [API_URL]);
+
+  const leftInfo = data?.leftInfo || {};
+  const designation = data?.designationOptions || {};
+
   return (
     <>
-    <section className="contact-section">
-      {/* HERO */}
-      <div className="contact-hero">
-        <span className="contact-pill">LET&apos;S CONNECT</span>
+      <section className="contact-v2-section">
+        {/* HERO */}
+        <div className="contact-v2-hero">
+          <span className="contact-v2-pill">LET&apos;S CONNECT</span>
 
-        <h1 className="contact-title">
-          We would love to hear <br /> from you{" "}
-          <span className="contact-emoji">✉️</span>
-        </h1>
+          <h1 className="contact-v2-title">
+            We would love to hear <br /> from you
+            <span className="contact-v2-emoji">✉️</span>
+          </h1>
 
-        <p className="contact-subtitle">
-          Have questions or want to connect? Share your basic details below, and
-          we’ll get in touch!
-        </p>
-      </div>
-
-      {/* CARD */}
-      <div className="contact-card">
-        {/* LEFT */}
-        <div className="contact-left">
-          <p className="contact-intro">
-            Connect with us. Your insights matter.
-            <br />
-            Together, we can revolutionize education and empower future
-            innovators. Let’s build tomorrow, today!
+          <p className="contact-v2-subtitle">
+            Have questions or want to connect? Share your basic details below,
+            and we’ll get in touch!
           </p>
+        </div>
 
-          <div className="contact-info">
-            <div className="info-block">
-              <HiOutlineOfficeBuilding className="info-icon" />
-              <div>
-                <h4>Head Office</h4>
-                <p>
-                  1st Floor, Vishwakarma Bhawan,
-                  <br />
-                  Indian Institute of Technology Delhi,
-                  <br />
-                  Hauz Khas, South Delhi, New Delhi,
-                  <br />
-                  Delhi 110016
-                </p>
+        {/* CARD */}
+        <div className="contact-v2-card">
+          {/* LEFT */}
+          <div>
+            <p className="contact-v2-intro">
+              {leftInfo.introText || ""}
+            </p>
+
+            <div className="contact-v2-info">
+              <div className="contact-v2-info-block">
+                <HiOutlineOfficeBuilding className="contact-v2-info-icon" />
+                <div>
+                  <h4>Head Office</h4>
+                  <p>{leftInfo.officeAddress || ""}</p>
+                </div>
               </div>
-            </div>
 
-            <div className="info-block">
-              <FiPhone className="info-icon" />
-              <div>
-                <h4>Phone</h4>
-                <p>+91 9220531339, +91 8160209678</p>
+              <div className="contact-v2-info-block">
+                <FiPhone className="contact-v2-info-icon" />
+                <div>
+                  <h4>Phone</h4>
+                  <p>{leftInfo.phone || ""}</p>
+                </div>
               </div>
-            </div>
 
-            <div className="info-block">
-              <HiOutlineMail className="info-icon" />
-              <div>
-                <h4>Email</h4>
-                <p>school@AIvengers.com</p>
+              <div className="contact-v2-info-block">
+                <HiOutlineMail className="contact-v2-info-icon" />
+                <div>
+                  <h4>Email</h4>
+                  <p>{leftInfo.email || ""}</p>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* RIGHT FORM */}
+          <form className="contact-v2-form">
+            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="Contact No." />
+            <input type="email" placeholder="Email" />
+
+            <select>
+              <option>Designation</option>
+              {designation.option1 && <option>{designation.option1}</option>}
+              {designation.option2 && <option>{designation.option2}</option>}
+              {designation.option3 && <option>{designation.option3}</option>}
+              {designation.option4 && <option>{designation.option4}</option>}
+              {designation.option5 && <option>{designation.option5}</option>}
+            </select>
+
+            <input type="text" placeholder="School Name" />
+            <input type="text" placeholder="City" />
+
+            <button type="submit">
+              Submit <span>↗</span>
+            </button>
+
+            <p className="contact-v2-form-note">
+              We will reach out to you about 24 hours in work days
+            </p>
+          </form>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="contact-v2-faq-section">
+        <div className="contact-v2-faq-header">
+          <span className="contact-v2-faq-pill">WE&apos;VE GOT YOU COVERED</span>
+          <h2 className="contact-v2-faq-title">Frequently Asked Questions</h2>
         </div>
 
-        {/* RIGHT */}
-        <form className="contact-form">
-          <input type="text" placeholder="Name" />
-          <input type="text" placeholder="Contact No." />
-          <input type="email" placeholder="Email" />
-          <select>
-            <option>Designation</option>
-          </select>
-          <input type="text" placeholder="School Name" />
-          <input type="text" placeholder="City" />
-
-          <button type="submit">
-            Submit <span>↗</span>
-          </button>
-
-          <p className="form-note">
-            We will reach out to you about 24 hours in work days
-          </p>
-        </form>
-      </div>
-    </section>
-
-    {/* /* ================= FAQ SECTION ================= */}
-
-<section className="faq-section">
-  <div className="faq-header">
-    <span className="faq-pill">WE&apos;VE GOT YOU COVERED</span>
-    <h2 className="faq-title">Frequently Asked Questions</h2>
-  </div>
-
-  <div className="faq-list">
-    <div className="faq-item">
-      <p>What age groups and classes do you cater to with our STEM curriculums?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>
-        What kind of support do we offer for schools participating in
-        competitions and exhibitions?
-      </p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>How do you set up a Robotics Lab in a school?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>What makes our iLMS different from other platforms?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>What is included in the Virtual Reality Lab setup?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>Can our school integrate existing resources into your programs?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-
-    <div className="faq-item">
-      <p>How do we get started with setting up a Maker Space in our school?</p>
-      <span className="faq-icon">⌄</span>
-    </div>
-  </div>
-</section>
-
-
+        <div className="contact-v2-faq-list">
+          {[
+            "What age groups and classes do you cater to with our STEM curriculums?",
+            "What kind of support do we offer for schools participating in competitions and exhibitions?",
+            "How do you set up a Robotics Lab in a school?",
+            "What makes our iLMS different from other platforms?",
+            "What is included in the Virtual Reality Lab setup?",
+            "Can our school integrate existing resources into your programs?",
+            "How do we get started with setting up a Maker Space in our school?",
+          ].map((q, i) => (
+            <div key={i} className="contact-v2-faq-item">
+              <p>{q}</p>
+              <span className="contact-v2-faq-icon">⌄</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </>
   );
 };

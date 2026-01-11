@@ -1,35 +1,41 @@
 import React from "react";
 import "./OurLabs.css";
 
-import labImg1 from "../../assets/students/student4.jpeg"; // replace
-import labImg2 from "../../assets/students/student2.jpeg"; // replace
-import labImg3 from "../../assets/students/student3.jpeg"; // replace
+import fallback1 from "../../assets/students/student4.jpeg";
+import fallback2 from "../../assets/students/student2.jpeg";
+import fallback3 from "../../assets/students/student3.jpeg";
 
-const OurLabs = () => {
+const OurLabs = ({ data }) => {
+  const images = [
+    data?.images?.[0] || fallback1,
+    data?.images?.[1] || fallback2,
+    data?.images?.[2] || fallback3,
+  ];
+
   return (
     <section className="our-labs">
       <div className="our-labs-inner">
-        {/* Pill */}
+        {/* Pill (STATIC) */}
         <span className="our-labs-pill">OUR LABS</span>
 
-        {/* Text */}
+        {/* Text (STATIC) */}
         <p className="our-labs-text">
-          We have our <span>25+</span> <strong>cutting edge labs</strong> set up
-          in multiple schools in Delhi, providing the tools that today’s
-          students need to tackle future standards.
+          We have our <span>25+</span>{" "}
+          <strong>cutting edge labs</strong> set up in multiple schools in Delhi,
+          providing the tools that today’s students need to tackle future
+          standards.
         </p>
 
-        {/* Images */}
+        {/* Images (DYNAMIC) */}
         <div className="our-labs-grid">
-          <div className="our-labs-card">
-            <img src={labImg1} alt="Robotics lab classroom" />
-          </div>
-          <div className="our-labs-card">
-            <img src={labImg2} alt="Computer lab session" />
-          </div>
-          <div className="our-labs-card">
-            <img src={labImg3} alt="Students learning robotics" />
-          </div>
+          {images.map((img, index) => (
+            <div className="our-labs-card" key={index}>
+              <img
+                src={img}
+                alt={`Our lab ${index + 1}`}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

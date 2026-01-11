@@ -1,10 +1,16 @@
 import React from "react";
 import "./WhyCourse.css";
 
-import leftImage from "../../assets/robotic-hand.avif";   // replace with actual path
-import rightImage from "../../assets/human-hand.avif"; // replace with actual path
+import leftImage from "../../assets/robotic-hand.avif";
+import rightImage from "../../assets/human-hand.avif";
 
-const WhyCourse = ({ value = "Robotics" }) => {
+const WhyCourse = ({ data, value = "Robotics" }) => {
+  const description =
+    data?.content ||
+    `Schools in Delhi NCR are embracing ${value.toLowerCase()} courses,
+    empowering students with confidence and hands-on skills for
+    tomorrow’s challenges`;
+
   return (
     <section className="why-course">
       {/* Left Image */}
@@ -24,9 +30,7 @@ const WhyCourse = ({ value = "Robotics" }) => {
         </h2>
 
         <p className="why-course-desc">
-          Schools in Delhi NCR are embracing {value.toLowerCase()} courses,
-          empowering students with confidence and hands-on skills for
-          tomorrow’s challenges
+          {description}
         </p>
       </div>
 

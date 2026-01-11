@@ -62,14 +62,16 @@
   padding: 0;
 }
 
-.footer-col li {
+.footer-col a {
+  text-decoration: none;
+  color: rgba(243, 241, 241, 0.568);
   font-size: 17px;
-  margin-bottom: 14px;
+  line-height: 2;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
-.footer-col li:hover {
+.footer-col a:hover {
   color: #ffffff;
 }
 
