@@ -94,7 +94,7 @@ const Footer = () => {
             </a>
           )}
 
-          <p onClick={()=> navigate('/admin/login')}>Admin Login</p>
+          <p onClick={()=> navigate('/admin/dashboard')}>Admin Login</p>
         </div>
       </div>
     </footer>

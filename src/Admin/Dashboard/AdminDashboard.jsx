@@ -69,26 +69,26 @@ const AdminDashboard = () => {
   const [active, setActive] = useState("dashboard");
 
   /* ========= AUTH CHECK ========= */
-  useEffect(() => {
-    const checkAdminAuth = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/admin/check", {
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   const checkAdminAuth = async () => {
+  //     try {
+  //       const res = await fetch("http://localhost:5000/api/admin/check", {
+  //         credentials: "include",
+  //       });
 
-        if (!res.ok) {
-          navigate("/admin/login");
-          return;
-        }
+  //       if (!res.ok) {
+  //         navigate("/admin/login");
+  //         return;
+  //       }
 
-        setCheckingAuth(false);
-      } catch (error) {
-        navigate("/admin/dashboard");
-      }
-    };
+  //       setCheckingAuth(false);
+  //     } catch (error) {
+  //       navigate("/admin/dashboard");
+  //     }
+  //   };
 
-    checkAdminAuth();
-  }, [navigate]);
+  //   checkAdminAuth();
+  // }, [navigate]);
 
   /* ========= LOGOUT ========= */
   const handleLogout = async () => {
@@ -105,9 +105,9 @@ const AdminDashboard = () => {
   };
 
   /* ========= LOADING STATE ========= */
-  if (checkingAuth) {
-    return <div style={{ padding: "40px" }}>Checking authentication...</div>;
-  }
+  // if (checkingAuth) {
+  //   return <div style={{ padding: "40px" }}>Checking authentication...</div>;
+  // }
 
   /* ========= MENU ITEM ========= */
   const MenuItem = ({ id, label }) => (
