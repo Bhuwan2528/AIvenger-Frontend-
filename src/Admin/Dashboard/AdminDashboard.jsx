@@ -83,7 +83,7 @@ const AdminDashboard = () => {
 
         setCheckingAuth(false);
       } catch (error) {
-        navigate("/admin/login");
+        navigate("/admin/dashboard");
       }
     };
 
